@@ -11,7 +11,12 @@ import io.eiren.util.logging.LogManager
 import io.github.axisangles.ktmath.Quaternion.Companion.fromRotationVector
 import org.apache.commons.lang3.ArrayUtils
 import solarxr_protocol.rpc.ResetType
-import java.net.*
+import java.net.DatagramPacket
+import java.net.DatagramSocket
+import java.net.InetSocketAddress
+import java.net.NetworkInterface
+import java.net.SocketAddress
+import java.net.SocketTimeoutException
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.charset.StandardCharsets
@@ -72,9 +77,9 @@ class TrackersUDPServer(private val port: Int, name: String, private val tracker
 						[TrackerServer] Tracker $i handed over to address ${handshakePacket.socketAddress}.
 						Board type: ${handshake.boardType},
 						imu type: ${handshake.imuType},
-						firmware: ${handshake.firmware} (${firmwareBuild}),
+						firmware: ${handshake.firmware} ($firmwareBuild),
 						mac: ${handshake.macString},
-						name: ${name}
+						name: $name
 						""".trimIndent()
 					)
 			}
